@@ -24,7 +24,7 @@ def get_details(websiteurl):
     image_url_all = []
     driver = webdriver.Chrome(executable_path='C:\Projects\Web Scrapping\Amazon Products\Drivers\chromedriver')
     driver.get(website)
-    sleep(2)
+    sleep(1)
 
     # PROUDUCT URL
 
@@ -63,11 +63,17 @@ def get_details(websiteurl):
     # RATING STAR
     head4 = driver.find_element_by_class_name('a-icon-alt').get_attribute('innerHTML')
     product_rating, sep4, tail4 = head4.partition(' out')
-
+    if type(product_rating)==int:
+        product_rating = product_rating + ' Stars'
+    else:
+        product_rating = 'Not Rated'
     # NUMBER OF REVIEWS
-    head5 = driver.find_element_by_id('acrCustomerReviewText').get_attribute('innerHTML') 
-    number_of_reviews, sep5, tail5 = head5.partition(' ratings')
-    number_of_reviews = number_of_reviews + 'Reviews'
+    try:
+        head5 = driver.find_element_by_id('acrCustomerReviewText').get_attribute('innerHTML') 
+        number_of_reviews, sep5, tail5 = head5.partition(' ratings')
+        number_of_reviews = number_of_reviews + ' Reviews'
+    except Exception:
+        number_of_reviews = "No Reviews"
 
     # PRODUCT DESCRIPTION
     product_description_final = []
@@ -143,7 +149,5 @@ def get_details(websiteurl):
     print(amazon_fulfilled)
     print(product_mrp)
     print(product_price)
-get_details('https://www.amazon.in/Milton-1000-Pet-Bottle-Pcs/dp/B07D9GVS1Q/ref=sxin_8?ascsubtag=amzn1.osa.7e65b266-aed4-4a21-af06-d104d44cc8c9.A21TJRUUN4KGV.en_IN')
-
-
+    driver.close()
 

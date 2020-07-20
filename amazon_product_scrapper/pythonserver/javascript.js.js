@@ -31,4 +31,10 @@ btn.innerText = "Import";
 btn.id = "importbtn"
 container.appendChild(btn);
 btn.addEventListener("click" , passwebsite);
-console.log('complete');
+btn.style.border= "none";
+btn.style.padding = "16px 12px";
+btn.style.color= "white";
+btn.style.display= "inline-block";
+btn.style.fontSize = "15px";
+btn.style.fontWeight = "bold";
+btn.style.backgroundColor = "#131921";
